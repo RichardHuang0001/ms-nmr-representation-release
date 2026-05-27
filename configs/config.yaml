@@ -1,0 +1,79 @@
+# ==============================================================================
+# 全局配置文件 (v1.2 - 修复 train.py 兼容性)
+# ==============================================================================
+# v1.2 更新:
+# - 在 data 下新增 processed_dir、masking_fraction 等顶层键，以兼容 train.py
+# - 保留原 preprocess.py 结构
+
+# --- 实验全局设置 ---
+experiment:
+  project_name: "ms-nmr-pretrain"
+  run_name: "set-transformer-pretrain-minmax-v2"
+  seed: 42
+
+# --- 数据相关参数 ---
+data:
+  # --- 预处理阶段参数 (由 preprocess.py 使用) ---
+  preprocessing:
+    raw_dir: "data/raw/nips_2024_dataset/multimodal_spectroscopic_dataset"
+    processed_dir: "data/processed"
+    global_stats_path: "configs/global_stats.yaml"   # 全局统计文件路径
+    force_rerun: false                               # 是否强制重新预处理
+    columns_to_process:
+      - h_nmr_peaks
+      - c_nmr_peaks
+      - msms_positive_10ev
+      - msms_positive_20ev
+      - msms_positive_40ev
+      - msms_negative_10ev
+      - msms_negative_20ev
+      - msms_negative_40ev
+    max_peaks: 256          # 每个样本最大峰数量
+    num_workers: 8         # 并行处理CPU核心数 (-1 表示使用所有核心)
+
+  # --- 数据加载阶段参数 (dataset.py / train.py 使用) ---
+  processed_dir: "data/processed"        # ✅ 新增：供 train.py 直接访问
+  masking_fraction: 0.15                 # 掩码比例 (自监督训练)
+  val_split_ratio: 0.1                   # 验证集比例
+  dataloader_num_workers: 4              # DataLoader 并行加载线程数
+
+# --- Peak Vector v2.0 (24维) 设计参数 ---
+peak_vector:
+  dim: 24
+  modality_map:
+    h_nmr_peaks: 0
+    c_nmr_peaks: 1
+    msms_positive_10ev: 2
+    msms_positive_20ev: 3
+    msms_positive_40ev: 4
+    msms_negative_10ev: 5
+    msms_negative_20ev: 6
+    msms_negative_40ev: 7
+  multiplicity_map:
+    s: 0
+    d: 1
+    t: 2
+    q: 3
+    m: 4
+    dd: 5
+    dt: 6
+    td: 7
+    tt: 8   # 索引9将留给 'other'
+
+# --- 模型参数 ---
+model:
+  dim_input: 24
+  dim_output: 24
+  dim_hidden: 256
+  num_heads: 8
+  num_inds: 32
+  depth: 6
+  ln: True
+
+# --- 训练参数 ---
+training:
+  device: "cuda"
+  epochs: 100
+  batch_size: 256        # ✅ 从 64 提到 256，提高吞吐 & GPU 利用率
+  learning_rate: 0.0001  # 先保持不变，观察新归一化后的稳定性
+  checkpoint_dir: "results/checkpoints_v2"

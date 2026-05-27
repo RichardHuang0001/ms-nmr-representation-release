@@ -1,0 +1,117 @@
+# ==============================================================================
+# 全局配置文件 (v1.3 - 兼容预处理与训练)
+# ==============================================================================
+# 本文件为整个项目的统一配置中心，控制从数据预处理到模型训练的全部环节。
+# 修订 v1.3:
+# ✅ 修正 processed_dir、masking_fraction 等字段层级
+# ✅ 保证 train.py 与 preprocess.py 均可正确读取
+# ✅ 保留详细注释方便科研记录
+
+# --- 实验全局设置 ---
+experiment:
+  project_name: "ms-nmr-pretrain"
+  run_name: &run_name "set-transformer-pretrain_v7"
+  seed: 42  # 用于复现实验结果的随机种子
+
+# --- 数据相关参数 ---
+data:
+  # --- 预处理阶段参数 (由 preprocess.py 使用) ---
+  preprocessing:
+    raw_dir: "data/raw/nips_2024_dataset/multimodal_spectroscopic_dataset"
+    processed_dir: "data/processed"
+    global_stats_path: "configs/global_stats.yaml"  # 全局统计文件的路径
+    force_rerun: false  # 是否强制重新运行预处理，即使已存在.pt文件
+
+    # 选择要包含在最终向量中的光谱列
+    columns_to_process:
+      - h_nmr_peaks
+      - c_nmr_peaks
+      - msms_positive_10ev
+      - msms_positive_20ev
+      - msms_positive_40ev
+      - msms_negative_10ev
+      - msms_negative_20ev
+      - msms_negative_40ev
+
+    # 填充/截断的最大峰数量 (已根据数据审计优化)
+    max_peaks: 256
+    # 并行处理的CPU核心数 (-1 表示使用所有可用核心)
+    num_workers: 4
+
+  # --- 数据加载阶段参数 (由 dataset.py 和 train.py 使用) ---
+  processed_dir: "data/processed"        # ✅ 指向预处理生成的 .pt 文件目录
+  masking_fraction: 0.15                 # ✅ 掩码比例，用于自监督训练
+  val_split_ratio: 0.1                   # 验证集划分比例
+  dataloader_num_workers: 64              # DataLoader 线程数
+
+# --- Peak Vector v2.0 (24维) 设计参数 ---
+peak_vector:
+  dim: 24  # 向量总维度
+  # 模态ID到one-hot索引的映射
+  modality_map:
+    h_nmr_peaks: 0
+    c_nmr_peaks: 1
+    msms_positive_10ev: 2
+    msms_positive_20ev: 3
+    msms_positive_40ev: 4
+    msms_negative_10ev: 5
+    msms_negative_20ev: 6
+    msms_negative_40ev: 7
+
+  # ¹H-NMR多重性到one-hot索引的映射
+  multiplicity_map:
+    s: 0
+    d: 1
+    t: 2
+    q: 3
+    m: 4
+    dd: 5
+    dt: 6
+    td: 7
+    tt: 8   # 索引9将留给 'other'
+
+  # --- 24维向量的特征切片定义 (用于损失函数计算) ---
+  feature_slices:
+    modality: [0, 8]       # 维度 0–7: 模态分类 (CrossEntropy)
+    position: [8, 9]       # 维度 8: 化学位移 (MSE)
+    intensity: [9, 10]     # 维度 9: 强度 (MSE)
+    integration: [10, 11]  # 维度 10: 积分 (MSE)
+    width: [11, 12]        # 维度 11: 峰宽 (MSE)
+    multiplicity: [12, 22] # 维度 12–21: 多重性 (CrossEntropy)
+    j_mean: [22, 23]       # 维度 22: J均值 (MSE)
+    j_count: [23, 24]      # 维度 23: J数量 (MSE)
+
+# --- 模型参数 ---
+model:
+  dim_input: 24
+  dim_output: 24
+  dim_hidden: 256  # Set Transformer隐藏维度
+  num_heads: 8     # 多头注意力头数
+  num_inds: 32     # 诱导点数量
+  depth: 6         # 编码器层数
+  ln: True         # 使用LayerNorm
+
+# --- 训练参数 ---
+training:
+  device: "cuda"                # 训练设备
+  epochs: 200                   # 总训练轮数
+  batch_size: 512                # 批大小 (根据显存调整)
+  learning_rate: 0.0001         # 学习率
+  checkpoint_dir: "results/checkpoints"  # 保存模型权重的路径
+  enable_tqdm: true             # 是否启用进度条（非TTY环境自动禁用）
+  progress_update_every: 100    # 进度条后缀更新频率（批次）
+  numeric_z_clip: 10.0   # 把 z-score 限制在 [-10, 10]
+
+# --- 实验追踪 (W&B) ---
+wandb:
+  project_name: "ms-nmr-pretrain"
+  run_name: *run_name
+  watch_log_freq: 1000          # W&B参数/梯度记录频率
+
+# --- 日志文件（可选） ---
+logging:
+  file:
+    enable: true
+    path: "logs/train.log"
+    max_bytes: 50000000
+    backup_count: 3
