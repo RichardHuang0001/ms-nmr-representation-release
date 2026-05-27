@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-cd /root/huangwei/ms-nmr-representation-eval
+cd "$(dirname "$0")/../.."
 
 export CUDA_VISIBLE_DEVICES="${GPU_ID:-0}"
 export PYTHONUNBUFFERED=1
@@ -17,16 +17,9 @@ OUT="results/downstream/hc_alignment_strict_scaffold_frozen"
   echo "CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES"
   nvidia-smi --query-gpu=index,name,memory.used,memory.total,utilization.gpu --format=csv,noheader
 
-  if [ -f /root/miniconda3/etc/profile.d/conda.sh ]; then
-    source /root/miniconda3/etc/profile.d/conda.sh
-  elif [ -f /root/anaconda3/etc/profile.d/conda.sh ]; then
-    source /root/anaconda3/etc/profile.d/conda.sh
-  elif [ -f /opt/conda/etc/profile.d/conda.sh ]; then
-    source /opt/conda/etc/profile.d/conda.sh
-  else
-    source "$(conda info --base)/etc/profile.d/conda.sh"
-  fi
-  conda activate spectra
+  # Activate your conda environment before running this script.
+# Example: conda activate your_env_name
+# The original script used "conda activate spectra" on a specific server.
 
   python -u downstream/train_hc_alignment_strict.py \
     --mode frozen_encoder \
