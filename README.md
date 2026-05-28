@@ -1,59 +1,55 @@
 # Set-Structured Multimodal Spectral Representation Learning
 
-Code release for the paper submitted to *Digital Discovery*.
+**Code release accompanying the paper submitted to *Digital Discovery* (Royal Society of Chemistry).**
 
-This repository contains the code used for the large-scale pretraining of the Set Transformer and the subsequent strict-protocol experiments.
+This repository provides a clean, self-contained snapshot of the code used for large-scale pretraining of a Set Transformer on multimodal NMR and MS spectra, along with the strict-protocol experiments reported in the paper.
 
-## What is included
+## Highlights
 
-- Pretraining code (`train.py` + training framework)
-- Core model implementation
-- Data loading and preprocessing
-- Strict H/C cross-modal alignment training and evaluation (main results)
-- Downstream probe training
-- Reconstruction evaluation of the pretrained model
+- Permutation-invariant modeling of spectral peaks using Set Transformer
+- Masked spectroscopic modeling pretraining
+- Strong emphasis on reproducibility: strict cross-modal leakage-free protocol for H/C alignment
+- Comprehensive ablations (encoder unfreezing depth, scratch baselines, scaffold splits, few-shot regimes)
+
+## Repository Contents
+
+- `train.py` — Main pretraining entry point
+- `src/` — Core model, training, and data handling code
+- `downstream/` — Downstream classification and H/C cross-modal alignment code (strict protocol)
+- `scripts/` — Runner scripts used to produce the main results in the paper
+- `configs/` — Example configuration files
+- `evaluate_reconstruction.py` — Reconstruction quality evaluation
 
 ## Installation
 
 ```bash
-pip install torch numpy scikit-learn tqdm pyyaml
-```
-
-Or run:
-```bash
 bash install.sh
 ```
 
-## Running Pretraining
-
-The main entry point is `train.py`. Example usage:
+Or manually:
 
 ```bash
-python train.py configs/pretrain_set_transformer.yaml
+pip install -r requirements.txt
 ```
 
-## Running Main Experiments (H/C Alignment)
+## Reproducing the Experiments
 
-See `scripts/` for the runner scripts used in the reported results:
+See `reproduce.sh` for a high-level overview.
 
-- Full finetuning from pretrained / scratch
-- Unfreezing depth ablations
-- Few-shot scaling
-- Scaffold split controls
-
-## Evaluation
-
-- `scripts/evaluate_reconstruction.py`: Assesses pretrained model reconstruction quality.
-- Downstream evaluation code lives in `downstream/`.
+Detailed instructions for pretraining and the main H/C alignment experiments (including strict protocol, unfreezing ablations, and scratch baselines) are provided in the `docs/` folder and inline in the scripts.
 
 ## Data
 
-Processed dataset will be available via Zenodo (link to be added).
+The processed multimodal spectroscopic dataset used in this work will be made publicly available via Zenodo (link will be added upon archiving).
 
 ## Citation
 
-Please cite the paper when using this code.
+If you use this code, please cite the associated paper (citation details will be added upon publication).
 
 ## License
 
-MIT
+MIT License
+
+## Contact
+
+For questions regarding the code or the paper, please open an issue or contact the corresponding author.

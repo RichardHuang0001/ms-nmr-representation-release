@@ -1,32 +1,38 @@
 # Release Repository Status
 
 **Repository Purpose**  
-Clean publication release version of the code for the paper submitted to *Digital Discovery* (Royal Society of Chemistry).
+Clean, publication-ready release of the code for the paper submitted to *Digital Discovery* (Royal Society of Chemistry).
 
-**Current State (as of late May 2026)**
+**Publication Date of this Release**  
+May 2026
 
-- This is a fresh Git repository with no development history from the original `ms-nmr-representation` repo.
-- Only files necessary for reproducing the main pretraining and strict-protocol H/C alignment + downstream experiments have been included.
-- Hardcoded server paths in runner scripts have been removed/minimized (scripts now use relative paths and environment variables).
+**Current State**
+
+- This is a fresh Git repository with **no development history** from the original messy `ms-nmr-representation` repo.
+- Only files required to reproduce the main pretraining and the strict-protocol H/C cross-modal alignment + downstream classification experiments are included.
+- Hardcoded paths have been cleaned (scripts use relative paths where possible).
 - Core components included:
-  - Pretraining entry point (`train.py`)
-  - Training framework (`src/training/`)
-  - Model implementation
-  - Data handling used in experiments
-  - Strict H/C alignment training and evaluation code
-  - Reconstruction and cross-modal evaluation scripts
-  - Key configuration files and runner scripts
+  - Pretraining (`train.py` + full training framework)
+  - Model architecture
+  - Strict H/C alignment training and evaluation (main positive results)
+  - Downstream probe training
+  - Reconstruction evaluation
+  - Key runner scripts and configurations used in the paper
 
-**What has been intentionally excluded**
-- Experimental logs, checkpoints, and intermediate results
-- Internal paper writing materials
-- Abandoned or exploratory code
-- Environment-specific paths and server configurations
+**What was deliberately excluded**
+- Training logs, checkpoints, and intermediate outputs
+- Abandoned/exploratory code
+- Internal paper-writing materials and notes
+- Environment-specific or server-specific configurations
 
-**Next Work Needed (not yet done)**
-- Further improvement of documentation and reproducibility instructions
-- Adding Data DOIs (Zenodo) once datasets are archived
-- Final polishing of README and any additional usage guides
-- Tagging a release version and uploading to Zenodo
+**Documentation**
+- `README.md` provides a high-level overview.
+- `reproduce.sh` and scripts contain usage examples.
+- Further reproducibility improvements and Zenodo DOIs for code + data will be added in subsequent updates.
 
-This repository is in a clean, reviewable state for the code portion of the submission.
+This repository represents the exact code snapshot corresponding to the methods and results described in the submitted manuscript.
+
+**Next steps after initial publication**
+- Archive to Zenodo for permanent DOI
+- Add data DOI once the processed dataset is uploaded
+- Expand documentation as needed for reviewers
