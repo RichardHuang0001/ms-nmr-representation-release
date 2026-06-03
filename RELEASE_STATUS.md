@@ -28,14 +28,16 @@ May 2026
 **Documentation**
 - `README.md` provides a high-level overview.
 - `reproduce.sh` and scripts contain usage examples.
-- Further reproducibility improvements and Zenodo DOIs for code + data will be added in subsequent updates.
+- Code Zenodo DOI obtained (10.5281/zenodo.20519353). Data DOI in progress.
 
 This repository represents the exact code snapshot corresponding to the methods and results described in the submitted manuscript.
 
-**Next steps after initial publication**
-- Archive to Zenodo for permanent DOI
-- Add data DOI once the processed dataset is uploaded
-- Expand documentation as needed for reviewers
+**Zenodo Archiving Status (as of 2026-06-03)**
+- **Code (Software record)**: Published via GitHub integration. DOI: **10.5281/zenodo.20519353**
+  - Record: https://zenodo.org/records/20519353
+  - View on GitHub release: the badge should now appear on v1.0.1
+- **Data (Dataset record)**: In progress — user has New upload page open. Will use separate Dataset record + bidirectional Related identifiers.
+- After data publish: edit both records to cross-link, then update paper DAS and release docs.
 ## Data Upload Instructions (for Zenodo)
 
 The processed dataset should be uploaded separately as a "Dataset" record on Zenodo.
