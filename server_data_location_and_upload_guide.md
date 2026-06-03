@@ -1,5 +1,11 @@
 # Server Data Location & Zenodo Upload Guide (for 20519555 draft)
 
+**2026-06-03 UPDATE (pivot to local):** Remote server (116.169.116.30:42594) currently unreachable from user's Mac (alternating "Connection refused" / "closed by remote during kex" — consistent with agent tests; likely unstable reverse tunnel/port forward + rate limiting + OpenSSH client/server mismatch). Direct server upload on hold until access recovers.
+
+**Current plan:** Fully local on Mac using the code's reproducibility instructions (raw download from public Zenodo 11611178, local preprocess to generate exact processed shards, upload to this draft from local). See main workspace helper scripts `local_rebuild_processed_for_zenodo.sh` and `local_upload_to_zenodo_draft.sh` (created/copied by agent; download started in bg via agent, ~350kB/s, monitor logs/download_raw.log; use `caffeinate -i` on Mac). Recommend tarring processed/ for upload practicality. Draft 20519555 already has core metadata pre-filled (title, description, related IDs to code 20519353 + GitHub). After upload files via script, polish in browser and Publish. Then cross-link + update paper/release docs.
+
+(The original server instructions below are kept for when access returns.)
+
 ## 1. Login with tmux (prevent disconnection)
 On your local machine, run:
 
