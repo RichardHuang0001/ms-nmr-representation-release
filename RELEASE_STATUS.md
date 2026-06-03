@@ -36,3 +36,20 @@ This repository represents the exact code snapshot corresponding to the methods 
 - Archive to Zenodo for permanent DOI
 - Add data DOI once the processed dataset is uploaded
 - Expand documentation as needed for reviewers
+## Data Upload Instructions (for Zenodo)
+
+The processed dataset should be uploaded separately as a "Dataset" record on Zenodo.
+
+Recommended tools (run directly on the remote server where data lives):
+- `scripts/zenodo_upload_dataset.py` (Python, more robust for very large files)
+- `scripts/zenodo_upload_curl.sh` (pure curl + bash, minimal dependencies)
+
+Steps:
+1. On Zenodo web (or Sandbox first), create a new draft upload, set Resource type = Dataset, save as draft. Note the deposition ID.
+2. Generate a Personal access token (deposit:write + deposit:actions scopes).
+3. Export ZENODO_TOKEN on the remote server.
+4. Run one of the scripts above with the deposition ID and file paths.
+5. After upload, edit the Zenodo record metadata and publish.
+6. Link the new data DOI to the code record (and vice versa) using Related identifiers.
+
+See the scripts for detailed usage. Always test with https://sandbox.zenodo.org first.

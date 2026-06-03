@@ -1,0 +1,96 @@
+# Zenodo New Upload - Dataset Metadata for the Spectral Representation Project
+
+## Instructions
+1. You have the "New upload" page open in your browser.
+2. First, in the "Upload files" section, upload your processed dataset files (the shard-based tensors, any metadata, README for the data).
+   - Drag and drop or select the files from your local machine (if you have downloaded them) or prepare to upload.
+   - Note: If files are large, you may need to use the API from the remote server as discussed previously. But since the page is open, you can upload small test files or the main ones if accessible.
+
+3. Fill the "Basic information" section with the following (copy-paste exactly):
+
+### Digital Object Identifier (DOI)
+- Answer "no" (we will let Zenodo generate one).
+- Click "Get a DOI now!" to reserve it (optional but recommended for citation in code).
+
+### Resource type
+- Select: Dataset
+
+### Title
+Processed Multimodal NMR and MS Spectroscopic Dataset for Set-Structured Representation Learning
+
+### Publication date
+2026-05-28   (or today's date; use the date you make it public)
+
+### Creators
+Add creator:
+- Name: Huang, Wei
+- Affiliation: [Your affiliation, e.g. The Chinese University of Hong Kong or whatever it is]
+- ORCID: [if you have one, add it]
+- Role: (optional, e.g. Data curator)
+
+(If there are other contributors, add them.)
+
+## Additional Metadata (after basic, there are more sections like Description, Keywords, etc.)
+
+### Description (Abstract)
+This dataset contains the processed multimodal spectroscopic data (¹H-NMR, ¹³C-NMR, and MS) used in the study on task-dependent value of pretraining in multimodal spectral learning.
+
+The raw data originates from the multimodal spectroscopic dataset introduced in Alberts et al. (2024). It has been processed into shard-based tensors where each sample is represented as a set of peak vectors. Each peak is described by a 24-dimensional feature vector, and each sample is padded or truncated to a maximum of 256 peaks. The encoder hidden dimension is 256.
+
+Key characteristics:
+- Splits: Train/Validation/Test with 80/10/10 ratio, random seed 42.
+- Used for: Masked spectroscopic modeling pretraining of Set Transformer and strict-protocol H/C cross-modal alignment experiments (with leakage-free protocol where H-branch sees only ¹H peaks and C-branch sees only ¹³C peaks).
+- Accompanying code: Available in the linked GitHub repository and Zenodo software record (see Related identifiers).
+
+This dataset enables full reproducibility of the pretraining and downstream experiments described in the associated paper submitted to Digital Discovery.
+
+### Keywords
+NMR, mass spectrometry, machine learning, Set Transformer, spectral representation, cross-modal learning, pretraining, multimodal data, chemistry, representation learning
+
+### License
+Creative Commons Attribution 4.0 International (CC-BY-4.0)   [or choose appropriate; for open data this is common]
+
+### Related identifiers
+Add:
+- The code's Zenodo DOI (the one you associated earlier): e.g. 10.5281/zenodo.XXXXXXX with relation "Is referenced by" or "References" (choose "Compiles" or "Is supplement to" if appropriate; typically "Is referenced by" the data for the software, but since code references data, add both ways if possible. For this record: relation "Is referenced by" the code record? Better: add the GitHub and the code Zenodo with "Is supplement to" or "References".
+
+  Example:
+  - Identifier: https://github.com/RichardHuang0001/ms-nmr-representation-release
+    Relation: Is supplement to
+    Resource type: Software
+
+  - Identifier: 10.5281/zenodo.[YOUR_CODE_DOI]
+    Relation: References   (or Is compiled by the code)
+    Resource type: Software
+
+- If the paper gets a DOI later, add it as "Is supplement to" the publication.
+
+### Communities (optional)
+Search and add if relevant, e.g. "Machine Learning", "Chemistry" or specific communities.
+
+### Funding (if any)
+Add if applicable.
+
+## After filling
+- Click "Save draft" to validate.
+- Then you can upload the actual data files if not done (drag and drop the processed data archives).
+- Set visibility: Public
+- Preview
+- Publish when ready.
+
+Note: After publish, you can still edit metadata, but files only within 45 days.
+
+If something goes wrong, delete the draft (you will lose the reserved DOI if any) and start a new upload as you said.
+
+## Data files recommendation
+Upload:
+- The main processed tensor files or shards.
+- A README_data.md explaining the structure, how to load, splits, feature dimensions (24-dim), max peaks 256.
+- Any index or metadata files.
+- Perhaps a small sample for quick test.
+
+Link this record to the code release in the "Related identifiers".
+
+This should make the record high quality for the journal submission.
+
+If you need me to adjust any text (e.g. exact author name, affiliation, specific data description), tell me the details and I will update this file.
