@@ -17,8 +17,8 @@
 ## 2. CURRENT BLOCKING TASK (HIGHEST PRIORITY)
 **Obtain real Zenodo DOIs for Code + Data** so Data Availability Statement in paper can be updated from placeholder to citable DOIs.
 
-- Code: Already "associated" by user on Zenodo (via GitHub release integration).
-- **Data**: In progress. User has **Zenodo "New upload" page open in browser** (production, not sandbox). Wants to fill metadata and upload the processed dataset directly. "不想走沙盒这么麻烦了，直接上传，不行就重开一份upload嘛" (direct upload; if fails, just delete draft and start new).
+- **Code**: Confirmed published via GitHub integration as of 2026-06-03. **Software DOI: 10.5281/zenodo.20519353**. Record: https://zenodo.org/records/20519353 . Badge visible on GitHub v1.0.1 release. README and RELEASE_STATUS updated with badge + citation.
+- **Data**: In progress. User has **Zenodo "New upload" page open in browser** (production, not sandbox). Agent used opencli to bind/navigate/inspect the settings + new upload. Confirmed code DOI via live browser. Metadata guide updated live with real DOI. "不想走沙盒这么麻烦了，直接上传，不行就重开一份upload嘛" (direct upload; if fails, just delete draft and start new).
 
 **Why separate records?** Best practice for Zenodo (code = Software record, data = Dataset record). Must link them bidirectionally via "Related identifiers". Allows proper licensing, versioning, citability.
 
@@ -104,10 +104,10 @@ Recent commits include docs improvements for publication.
 - Wants **direct production upload** (no sandbox testing this time; "if wrong, just delete draft and start new upload").
 - Data files are (presumably) accessible or need to be uploaded from remote server.
 
-**Immediate need**: Exact text/values for every field in the open form:
-- Resource type: Dataset
-- Title, description, creators, publication date, license, keywords, related identifiers, etc.
-- Then upload the actual data files (recommend the prepared scripts if large).
+**Immediate need**: Exact text/values for every field in the open form (guide ready in zenodo_dataset_metadata.txt, updated with real code DOI):
+- Resource type: Dataset (already targeted via opencli)
+- Title, description, creators (Huang, Wei + CUHK), publication date, license (CC-BY-4.0), keywords, **Related identifiers with 10.5281/zenodo.20519353**, etc.
+- Then upload the actual data files (recommend the prepared scripts if large; clarify if files are local on this Mac or need remote server run).
 
 I created /Users/huangwei/Desktop/PythonProjects/ms-nmr-representation-release/zenodo_dataset_metadata.txt with full instructions + copy-paste text. It uses:
 - Title: "Processed Multimodal NMR and MS Spectroscopic Dataset for Set-Structured Representation Learning"
