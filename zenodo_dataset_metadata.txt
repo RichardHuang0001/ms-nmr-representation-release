@@ -1,5 +1,11 @@
 # Zenodo New Upload - Dataset Metadata for the Spectral Representation Project
 
+**CONFIRMED CODE ZENODO DOI (use for Related identifiers below): 10.5281/zenodo.20519353 (Software record for v1.0.1)**
+
+The GitHub integration has now created the Software record. You can view it at:
+https://zenodo.org/records/20519353
+https://doi.org/10.5281/zenodo.20519353
+
 ## Instructions
 1. You have the "New upload" page open in your browser.
 2. First, in the "Upload files" section, upload your processed dataset files (the shard-based tensors, any metadata, README for the data).
@@ -19,13 +25,13 @@
 Processed Multimodal NMR and MS Spectroscopic Dataset for Set-Structured Representation Learning
 
 ### Publication date
-2026-05-28   (or today's date; use the date you make it public)
+2026-06-03   (use today's date or the date you publish)
 
 ### Creators
 Add creator:
 - Name: Huang, Wei
-- Affiliation: [Your affiliation, e.g. The Chinese University of Hong Kong or whatever it is]
-- ORCID: [if you have one, add it]
+- Affiliation: The Chinese University of Hong Kong
+- ORCID: [add if you have one; the code record currently lists "HuangWei1" — edit both records to consistent "Huang, Wei" + full affiliation + ORCID]
 - Role: (optional, e.g. Data curator)
 
 (If there are other contributors, add them.)
@@ -40,7 +46,7 @@ The raw data originates from the multimodal spectroscopic dataset introduced in 
 Key characteristics:
 - Splits: Train/Validation/Test with 80/10/10 ratio, random seed 42.
 - Used for: Masked spectroscopic modeling pretraining of Set Transformer and strict-protocol H/C cross-modal alignment experiments (with leakage-free protocol where H-branch sees only ¹H peaks and C-branch sees only ¹³C peaks).
-- Accompanying code: Available in the linked GitHub repository and Zenodo software record (see Related identifiers).
+- Accompanying code: Available in the linked GitHub repository (https://github.com/RichardHuang0001/ms-nmr-representation-release) and the Zenodo Software record (DOI 10.5281/zenodo.20519353; see Related identifiers below).
 
 This dataset enables full reproducibility of the pretraining and downstream experiments described in the associated paper submitted to Digital Discovery.
 
@@ -51,17 +57,24 @@ NMR, mass spectrometry, machine learning, Set Transformer, spectral representati
 Creative Commons Attribution 4.0 International (CC-BY-4.0)   [or choose appropriate; for open data this is common]
 
 ### Related identifiers
-Add:
-- The code's Zenodo DOI (the one you associated earlier): e.g. 10.5281/zenodo.XXXXXXX with relation "Is referenced by" or "References" (choose "Compiles" or "Is supplement to" if appropriate; typically "Is referenced by" the data for the software, but since code references data, add both ways if possible. For this record: relation "Is referenced by" the code record? Better: add the GitHub and the code Zenodo with "Is supplement to" or "References".
+Add these (critical for linking code + data for the journal):
 
-  Example:
-  - Identifier: https://github.com/RichardHuang0001/ms-nmr-representation-release
-    Relation: Is supplement to
-    Resource type: Software
+1. GitHub (as URL):
+   - Identifier: https://github.com/RichardHuang0001/ms-nmr-representation-release
+   - Relation: Is supplement to
+   - Resource type: Software
 
-  - Identifier: 10.5281/zenodo.[YOUR_CODE_DOI]
-    Relation: References   (or Is compiled by the code)
-    Resource type: Software
+2. Code Zenodo DOI (confirmed 10.5281/zenodo.20519353):
+   - Identifier: 10.5281/zenodo.20519353
+   - Relation: References
+   - Resource type: Software
+
+After you publish this Dataset record and get its DOI (e.g. 10.5281/zenodo.YYYYYYY), go back to the code record (https://zenodo.org/records/20519353) → Edit → Related identifiers, and add the new data DOI with:
+   - Identifier: 10.5281/zenodo.YYYYYYY
+   - Relation: References   (or "Is supplement to")
+   - Resource type: Dataset
+
+This creates the required bidirectional citation between the Software and Dataset records.
 
 - If the paper gets a DOI later, add it as "Is supplement to" the publication.
 
